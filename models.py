@@ -248,14 +248,26 @@ class WarehouseData:
         return [slot for slot in self.slots.values() if slot.status == SlotStatus.OCCUPIED]
     
     def find_suitable_slots_for_item(self, item_id: str) -> List[Slot]:
-        """Find all suitable empty slots for an item"""
+        """Find all suitable empty slots for an item, enforcing zone rules"""
         if item_id not in self.items:
             return []
         
         item = self.items[item_id]
         suitable_slots = []
-        
+
+        # Determine allowed zone(s) based on item type
+        allowed_zones = None
+        if item.category.lower() == "electronics":
+            allowed_zones = ["A"]
+        elif getattr(item, 'temperature_requirement', None) == "frozen":
+            allowed_zones = ["B"]
+        elif item.is_hazardous or item.category.lower() == "chemicals":
+            allowed_zones = ["C"]
+        # else: allow all zones (for general items)
+
         for slot in self.get_empty_slots():
+            if allowed_zones and slot.zone not in allowed_zones:
+                continue
             if self._is_compatible(slot, item):
                 suitable_slots.append(slot)
         

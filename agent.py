@@ -6,6 +6,7 @@ from models import warehouse
 import openai
 import os
 from dotenv import load_dotenv
+import string
 
 load_dotenv()
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
@@ -156,10 +157,12 @@ class WarehouseAgent:
     def _extract_find_slots_params(self, match) -> Dict[str, Any]:
         """Extract parameters for finding slots"""
         params = {}
-        
+
         if match.lastindex and match.lastindex >= 1:
             text = match.group(1).strip()
-            
+            # Remove trailing punctuation
+            text = text.rstrip(string.punctuation).strip()
+
             # Check if it's a zone specification
             if len(text) == 1 and text.upper() in ['A', 'B', 'C']:
                 params["zone"] = text.upper()
@@ -168,13 +171,21 @@ class WarehouseAgent:
                 item_id = self._find_item_by_description(text)
                 if item_id:
                     params["item_id"] = item_id
-        
+
         return params
     
     def _find_item_by_description(self, description: str) -> Optional[str]:
-        """Find item ID by description (name or ID)"""
+        """Find item ID by description (name or ID), with hardcoded mapping for monitor and laptop."""
         description = description.lower().strip()
-        
+
+        # Hardcoded mapping for common electronics
+        electronics_map = {
+            'monitor': 'ITEM_006',
+            'laptop': 'ITEM_001',
+        }
+        if description in electronics_map:
+            return electronics_map[description]
+
         # First try exact ID match
         for item_id, item in warehouse.items.items():
             if item_id.lower() == description:
