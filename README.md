@@ -14,6 +14,17 @@ A FastAPI-based warehouse management agent with natural language processing capa
 - **RESTful API**: Complete API endpoints for programmatic access
 - **Guardrails & Visual Feedback**: Irrelevant or unsafe questions trigger a red chat bubble and a clear message
 
+## 🖥️ Frontend
+
+- **Modern Chat UI**: Intuitive, real-time chat with the agent
+- **Quick Actions**: One-click commands for common tasks
+- **Live Stats Sidebar**: See total, occupied, and empty slots at a glance
+- **Example Commands**: Clickable suggestions for new users
+
+**Frontend Preview:**
+
+![Frontend Screenshot](PLACEHOLDER_FOR_IMAGE)
+
 ## 📊 Warehouse Structure
 
 - **3 Zones**: A (Standard), B (Cold Storage), C (Hazmat/Oversized)

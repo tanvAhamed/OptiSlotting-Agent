@@ -68,7 +68,15 @@ class WarehouseAgent:
         openai_response = self.openai_chat(user_message)
         # Combine OpenAI response and action result if any
         if action_response:
-            response = f"{openai_response}\n\n{action_response}"
+            if intent_result["action"] == "get_warehouse_status":
+                # Use real occupancy rate for summary
+                occupancy = tool_result["summary"]["overall_occupancy_rate"]
+                summary = f"The warehouse currently has {occupancy:.1f}% capacity utilization."
+                response = f"{summary}\n\n{action_response}"
+            elif intent_result["action"] == "find_available_slots":
+                response = action_response
+            else:
+                response = f"{openai_response}\n\n{action_response}"
         else:
             response = openai_response
         return {
@@ -239,7 +247,16 @@ class WarehouseAgent:
             if tool_result["total_slots"] == 0:
                 return "❌ No available slots found matching your criteria."
             
-            slots_text = f"Found {tool_result['total_slots']} available slots:\n\n"
+            # Get item name if available
+            item_name = ""
+            if tool_result.get("filters_applied", {}).get("item_id"):
+                item_id = tool_result["filters_applied"]["item_id"]
+                from models import warehouse
+                item = warehouse.items.get(item_id)
+                if item:
+                    item_name = f" for {item.name}"
+
+            slots_text = f"Found {tool_result['total_slots']} available slots{item_name} in Zone A:\n\n"
             for slot in tool_result["slots"][:10]:  # Show first 10
                 slots_text += f"📦 {slot['slot_id']} - Zone {slot['zone']}, {slot['slot_type'].replace('_', ' ').title()}\n"
             
