@@ -1,6 +1,110 @@
-# 🏭 OptSlot Agent - Warehouse Inventory Management System
+# 🏭 OptiSlot Agent - Warehouse Inventory Management System
 
-A FastAPI-based warehouse management agent with natural language processing capabilities for slot assignment and inventory management.
+A FastAPI-based warehouse management agent with a modern web chat UI and natural language interface for slot assignment and inventory management.
+
+---
+
+## 🖥️ Frontend
+- **Modern Chat UI**: Real-time chat with the agent using plain English
+- **Quick Actions**: One-click buttons for common tasks (status, find slots, help)
+- **Live Stats Sidebar**: See total, occupied, and empty slots, with zone/type breakdowns
+- **Example Commands**: Clickable suggestions for new users
+- **Red Error Bubble**: Irrelevant questions trigger a red message bubble with a clear guardrail message
+
+**Frontend Preview:**
+
+![Frontend Screenshot](PLACEHOLDER_FOR_IMAGE)
+
+---
+
+## ⚙️ Backend
+- **FastAPI** serves both the web UI and RESTful API endpoints
+- **Endpoints:**
+  - `/` – Main chat interface (serves the frontend)
+  - `/chat` – Processes chat messages (POST)
+  - `/api/warehouse/status` – Warehouse statistics (GET)
+  - `/api/warehouse/slots` – All slots info (GET)
+  - `/api/warehouse/items` – All items info (GET)
+  - `/api/warehouse/assign` – Assign item to slot (POST)
+  - `/api/warehouse/slots/empty` – Get empty slots (GET)
+
+---
+
+## 🧠 Agent Tools
+- **change_slot_assignment**: Assign or reassign an item to a specific slot
+- **find_available_slots**: Find available slots, optionally filtered by item, zone, or slot type
+- **get_warehouse_status**: Get overall warehouse status, occupancy, and statistics
+
+---
+
+## 🏗️ Demo Flows
+
+**Assigning an Item**
+```
+User: assign laptop to slot A-01-01-05
+Agent: ✅ Successfully assigned Laptop Computer (ITEM_001) to slot A-01-01-05
+```
+
+**Finding Slots**
+```
+User: find slots for monitor
+Agent: Found 57 available slots for Monitor 27inch in Zone A: ...
+```
+
+**Guardrail Example**
+```
+User: write a poem about strawberries
+Agent: (Red bubble) Sorry, I can only answer questions related to Slotting Inventory Management
+```
+
+**Warehouse Status**
+```
+User: show warehouse status
+Agent: The warehouse currently has 2.8% capacity utilization. ...
+```
+
+---
+
+## 🚀 Setup Guide
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/tanvAhamed/OptiSlotting-Agent.git
+   cd OptiSlotting-Agent
+   ```
+2. **Install dependencies**
+   ```bash
+   pip install -r requirements.txt
+   ```
+3. **Set up environment variables**
+   - Create a `.env` file with your OpenAI API key:
+     ```
+     OPENAI_API_KEY=your-key-here
+     ```
+4. **Run the application**
+   ```bash
+   python main.py
+   ```
+   - The app will be available at [http://localhost:8000](http://localhost:8000)
+
+---
+
+## 📝 Customization & Extensibility
+- Add new items in `models.py`
+- Add new tools in `tools.py` and register in `AVAILABLE_TOOLS`
+- Extend agent patterns in `agent.py` for new intents
+
+---
+
+## 🛡️ Guardrails & Safety
+- The agent only answers questions related to warehouse slotting and management
+- Irrelevant or unsafe questions trigger a red chat bubble with:
+  > Sorry, I can only answer questions related to Slotting Inventory Management
+
+---
+
+## 📄 License
+This project is part of the OptiSlot Agent capstone project.
 
 ## 🚀 Features
 
@@ -13,18 +117,6 @@ A FastAPI-based warehouse management agent with natural language processing capa
 - **Real-time Web Interface**: Modern chat UI with live warehouse statistics
 - **RESTful API**: Complete API endpoints for programmatic access
 - **Guardrails & Visual Feedback**: Irrelevant or unsafe questions trigger a red chat bubble and a clear message
-
-## 🖥️ Frontend
-
-- **Modern Chat UI**: Intuitive, real-time chat with the agent
-- **Quick Actions**: One-click commands for common tasks
-- **Live Stats Sidebar**: See total, occupied, and empty slots at a glance
-- **Example Commands**: Clickable suggestions for new users
-
-**Frontend Preview:**
-
-![image](https://github.com/user-attachments/assets/9f1b5710-2038-49ad-8b0a-8f007d88c79d)
-
 
 ## 📊 Warehouse Structure
 
@@ -206,17 +298,3 @@ Agent: 📊 Warehouse Status
 - Add user authentication
 - Implement real-time notifications
 - Add barcode scanning support
-
-## 📝 License
-
-This project is part of the OptiSlot Agent capstone project.
-
-## 🛡️ Guardrails & Safety
-
-- The agent only answers questions related to warehouse slotting and management.
-- If a user asks an irrelevant or potentially unsafe (jailbreak) question, the agent responds with:
-
-  > Sorry, I can only answer questions related to slotting management.
-
-- The chat bubble for this response turns red for clear visual feedback.
-- This helps prevent misuse and keeps the agent focused on its intended domain. 
