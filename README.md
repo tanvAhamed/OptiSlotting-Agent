@@ -12,8 +12,8 @@ A FastAPI-based warehouse management agent with a modern web chat UI and natural
 - **Red Error Bubble**: Irrelevant questions trigger a red message bubble with a clear guardrail message
 
 **Frontend Preview:**
+![image](https://github.com/user-attachments/assets/4ffca837-86cf-49b7-a555-bcf9d9021a82)
 
-![Frontend Screenshot](PLACEHOLDER_FOR_IMAGE)
 
 ---
 
@@ -311,4 +311,7 @@ This project is part of the OptiSlot Agent capstone project.
   > Sorry, I can only answer questions related to slotting management.
 
 - The chat bubble for this response turns red for clear visual feedback.
-- This helps prevent misuse and keeps the agent focused on its intended domain. 
+- This helps prevent misuse and keeps the agent focused on its intended domain.
+
+![image](https://github.com/user-attachments/assets/d4a3ea07-25ae-4432-b8b4-67193e199f79)
+
