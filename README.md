@@ -1,4 +1,4 @@
-# 🏭 OptSlot Agent - Warehouse Inventory Management System
+# 🏭 OptiSlotting Agent - Warehouse Inventory Management System
 
 A FastAPI-based warehouse management agent with a modern web chat UI and natural language interface for slot assignment and inventory management.
 
