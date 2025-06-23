@@ -1,0 +1,198 @@
+# 🏭 OptSlot Agent - Warehouse Inventory Management System
+
+A FastAPI-based warehouse management agent with natural language processing capabilities for slot assignment and inventory management.
+
+## 🚀 Features
+
+- **Natural Language Interface**: Chat with the agent using plain English
+- **3 Core Tools**:
+  1. **Slot Assignment**: Assign items to warehouse slots with compatibility checking
+  2. **Slot Discovery**: Find available slots based on item requirements or filters
+  3. **Warehouse Status**: Get comprehensive warehouse occupancy and statistics
+- **Smart Slot Management**: Automatic compatibility checking (weight, dimensions, hazmat, temperature)
+- **Real-time Web Interface**: Modern chat UI with live warehouse statistics
+- **RESTful API**: Complete API endpoints for programmatic access
+
+## 📊 Warehouse Structure
+
+- **3 Zones**: A (Standard), B (Cold Storage), C (Hazmat/Oversized)
+- **180 Total Slots**: Organized by Zone-Aisle-Level-Position (e.g., A-01-01-01)
+- **4 Slot Types**: Standard, Cold Storage, Hazmat, Oversized
+- **6 Sample Items**: Electronics, furniture, chemicals, food, office supplies
+
+## 🛠️ Installation
+
+1. **Clone/Create the project directory**
+2. **Install dependencies**:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. **Run the application**:
+   ```bash
+   python main.py
+   ```
+
+4. **Open your browser** to `http://localhost:8000`
+
+## 💬 Usage Examples
+
+### Chat Commands
+- `"assign laptop to slot A-01-01-05"`
+- `"put office chair in slot B-02-01-01"`
+- `"find empty slots in zone A"`
+- `"where can I put the monitor?"`
+- `"show warehouse status"`
+- `"find slots for chemical solvent"`
+
+### API Endpoints
+- `GET /` - Web interface
+- `POST /chat` - Chat with agent
+- `GET /api/warehouse/status` - Warehouse statistics
+- `GET /api/warehouse/slots` - All slots info
+- `GET /api/warehouse/items` - All items info
+- `POST /api/warehouse/assign` - Direct slot assignment
+
+## 🏗️ Architecture
+
+### Core Components
+
+1. **`models.py`** - Data models and warehouse initialization
+   - Slot, Item, Assignment classes
+   - Warehouse data management
+   - Compatibility checking logic
+
+2. **`tools.py`** - Agent tools implementation
+   - `change_slot_assignment()` - Assign items to slots
+   - `find_available_slots()` - Search for empty slots
+   - `get_warehouse_status()` - Warehouse statistics
+
+3. **`agent.py`** - Natural language processing agent
+   - Intent recognition with regex patterns
+   - Parameter extraction
+   - Response formatting
+
+4. **`main.py`** - FastAPI web application
+   - Chat interface endpoints
+   - RESTful API
+   - Static file serving
+
+5. **`templates/index.html`** - Modern web interface
+   - Real-time chat
+   - Warehouse statistics sidebar
+   - Quick actions and examples
+
+### Data Structure
+
+```python
+# Sample Slot
+{
+  "slot_id": "A-01-01-01",
+  "zone": "A",
+  "slot_type": "standard",
+  "status": "occupied",
+  "assigned_item_id": "ITEM_001",
+  "max_weight": 25.0,
+  "dimensions": {"length": 80, "width": 60, "height": 100}
+}
+
+# Sample Item
+{
+  "item_id": "ITEM_001",
+  "name": "Laptop Computer",
+  "category": "Electronics",
+  "weight": 2.5,
+  "dimensions": {"length": 35, "width": 25, "height": 3},
+  "is_hazardous": False
+}
+```
+
+## 🔧 Customization
+
+### Adding New Items
+```python
+# In models.py, add to dummy_items list
+Item(
+    item_id="ITEM_007",
+    name="New Product",
+    category="Category",
+    weight=10.0,
+    dimensions={"length": 50, "width": 40, "height": 30},
+    is_hazardous=False
+)
+```
+
+### Adding New Tools
+```python
+# In tools.py
+def new_tool_function(param1: str) -> Dict[str, Any]:
+    # Tool implementation
+    return {"success": True, "message": "Tool executed"}
+
+# Add to AVAILABLE_TOOLS registry
+AVAILABLE_TOOLS["new_tool"] = {
+    "function": new_tool_function,
+    "description": "Description of the tool",
+    "parameters": {"param1": "Parameter description"}
+}
+```
+
+### Extending Agent Patterns
+```python
+# In agent.py, add to patterns list
+{
+    "patterns": [r"new pattern regex"],
+    "action": "tool_name",
+    "extractor": extraction_function
+}
+```
+
+## 📈 Warehouse Statistics
+
+The system tracks:
+- **Overall occupancy rate**
+- **Zone-wise breakdown** (A, B, C)
+- **Slot type utilization** (Standard, Cold Storage, Hazmat, Oversized)
+- **Recent assignments**
+- **Empty slot counts**
+
+## 🔐 Compatibility Rules
+
+- **Weight**: Item weight ≤ Slot max weight
+- **Dimensions**: Item fits within slot dimensions
+- **Hazardous**: Hazardous items only in Hazmat slots
+- **Temperature**: Frozen items only in Cold Storage slots
+
+## 🎯 Example Interactions
+
+```
+User: "assign laptop to slot A-01-01-05"
+Agent: ✅ Successfully assigned Laptop Computer (ITEM_001) to slot A-01-01-05
+
+User: "find slots for chemical solvent"  
+Agent: Found 38 available slots for Chemical Solvent:
+       📦 C-01-01-02 - Zone C, Hazmat
+       📦 C-01-02-01 - Zone C, Hazmat
+       ...
+
+User: "show warehouse status"
+Agent: 📊 Warehouse Status
+       🏢 Total Slots: 180
+       📦 Occupied: 6 (3.3%)
+       🆓 Empty: 174
+       ...
+```
+
+## 🚀 Future Enhancements
+
+- Add item movement history tracking
+- Implement advanced search filters
+- Add bulk operations support
+- Create mobile-responsive design
+- Add user authentication
+- Implement real-time notifications
+- Add barcode scanning support
+
+## 📝 License
+
+This project is part of the OptiSlot Agent capstone project. 
