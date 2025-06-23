@@ -1,4 +1,4 @@
-# 🏭 OptiSlot Agent - Warehouse Inventory Management System
+# 🏭 OptSlot Agent - Warehouse Inventory Management System
 
 A FastAPI-based warehouse management agent with a modern web chat UI and natural language interface for slot assignment and inventory management.
 
@@ -298,3 +298,17 @@ Agent: 📊 Warehouse Status
 - Add user authentication
 - Implement real-time notifications
 - Add barcode scanning support
+
+## 📝 License
+
+This project is part of the OptiSlot Agent capstone project.
+
+## 🛡️ Guardrails & Safety
+
+- The agent only answers questions related to warehouse slotting and management.
+- If a user asks an irrelevant or potentially unsafe (jailbreak) question, the agent responds with:
+
+  > Sorry, I can only answer questions related to slotting management.
+
+- The chat bubble for this response turns red for clear visual feedback.
+- This helps prevent misuse and keeps the agent focused on its intended domain. 
