@@ -12,6 +12,7 @@ A FastAPI-based warehouse management agent with natural language processing capa
 - **Smart Slot Management**: Automatic compatibility checking (weight, dimensions, hazmat, temperature)
 - **Real-time Web Interface**: Modern chat UI with live warehouse statistics
 - **RESTful API**: Complete API endpoints for programmatic access
+- **Guardrails & Visual Feedback**: Irrelevant or unsafe questions trigger a red chat bubble and a clear message
 
 ## 📊 Warehouse Structure
 
@@ -44,6 +45,7 @@ A FastAPI-based warehouse management agent with natural language processing capa
 - `"where can I put the monitor?"`
 - `"show warehouse status"`
 - `"find slots for chemical solvent"`
+- `"write poem on strawberry"` ⟶ _Triggers guardrail: red bubble, message: Sorry, I can only answer questions related to slotting management._
 
 ### API Endpoints
 - `GET /` - Web interface
@@ -195,4 +197,14 @@ Agent: 📊 Warehouse Status
 
 ## 📝 License
 
-This project is part of the OptiSlot Agent capstone project. 
+This project is part of the OptiSlot Agent capstone project.
+
+## 🛡️ Guardrails & Safety
+
+- The agent only answers questions related to warehouse slotting and management.
+- If a user asks an irrelevant or potentially unsafe (jailbreak) question, the agent responds with:
+
+  > Sorry, I can only answer questions related to slotting management.
+
+- The chat bubble for this response turns red for clear visual feedback.
+- This helps prevent misuse and keeps the agent focused on its intended domain. 
