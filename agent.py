@@ -44,6 +44,15 @@ class WarehouseAgent:
         intent_result = self._analyze_intent(user_message.lower())
         tool_result = None
         action_response = ""
+        # GUARDRAIL: If not a warehouse action, block with red error bubble
+        if not intent_result["action"]:
+            return {
+                "response": "Sorry, I can only answer questions related to Slotting Inventory Management",
+                "success": False,
+                "error": True,
+                "tool_used": None,
+                "tool_result": None
+            }
         if intent_result["action"]:
             filtered_params = {}
             if intent_result["action"] == "change_slot_assignment":
