@@ -23,7 +23,8 @@ A FastAPI-based warehouse management agent with natural language processing capa
 
 **Frontend Preview:**
 
-![Frontend Screenshot](PLACEHOLDER_FOR_IMAGE)
+![image](https://github.com/user-attachments/assets/9f1b5710-2038-49ad-8b0a-8f007d88c79d)
+
 
 ## 📊 Warehouse Structure
 
