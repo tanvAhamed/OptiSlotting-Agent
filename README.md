@@ -1,4 +1,4 @@
-# 🏭 OptSlot Agent - Warehouse Inventory Management System
+# 🏭 OptiSlotting Agent - Warehouse Inventory Management System
 
 A FastAPI-based warehouse management agent with natural language processing capabilities for slot assignment and inventory management.
 
@@ -220,3 +220,6 @@ This project is part of the OptiSlot Agent capstone project.
 
 - The chat bubble for this response turns red for clear visual feedback.
 - This helps prevent misuse and keeps the agent focused on its intended domain. 
+
+![image](https://github.com/user-attachments/assets/de938053-7a4a-40e6-806b-9591e72279da)
+
